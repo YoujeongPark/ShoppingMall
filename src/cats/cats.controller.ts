@@ -1,43 +1,36 @@
-import { Controller, Get, Post, Put, Patch , Delete, UseFilters} from '@nestjs/common';
+import { Controller, Get, Post, Put, Patch, Delete, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 
 @Controller('cats')
 @UseFilters(HttpExceptionFilter) // 위에다가 다 사용하면 전체 적용 
 export class CatsController {
-    constructor(private readonly catsService : CatsController){
+  constructor(private readonly catsService: CatsController) {
 
-    }    
-    // cats / 
-    @Get()
-    @UseFilters(HttpExceptionFilter)
-    getAllCat(){
-        return 'all cat';
-    }
+  }
 
-    @Get(':id')
-    getOneCat(){
-        return 'one cat';
-    }
+  @Get()
+  getCurrentCat() {
+    return 'current cat'
+  }
 
-    @Post()
-    createCat(){
-        return 'create cat';
-    }
+  @Post()
+  async singUp() {
+    return 'signup';
+  }
 
-    @Put(':id')
-    updateCat(){
-        return 'update cat';
-    }
+  @Post('login')
+  logIn() {
+    return 'login'
+  }
 
-    @Patch(':id')
-    updatePartialCat(){
-        return; 
-    }
+  @Post('logout')
+  logOut() {
+    return 'logout';
+  }
 
-    @Delete(':id')
-    deleteCat(){
-        return 'delete service'; 
-    }
+  @Post('upload/cats')
+  uploadCatImg() {
+    return 'uploadImg'
+  }
 
-    
 }
