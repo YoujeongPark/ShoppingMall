@@ -1,26 +1,30 @@
-import { Controller, Get, Post, Put, Patch, Delete, UseFilters } from '@nestjs/common';
+import { Body, UseFilters, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Put } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
+import { CatsService } from './cats.service';
+import { CatRequestDto } from './dto/cats.request.dto';
 
 @Controller('cats')
-@UseFilters(HttpExceptionFilter) // 위에다가 다 사용하면 전체 적용 
+@UseInterceptors(SuccessInterceptor)
+@UseFilters(HttpExceptionFilter)
 export class CatsController {
-  constructor(private readonly catsService: CatsController) {
-
-  }
+  constructor(private readonly catsService: CatsService) {}
 
   @Get()
   getCurrentCat() {
-    return 'current cat'
+    return 'current cat';
   }
 
   @Post()
-  async singUp() {
+  async signUp(@Body() body: CatRequestDto) {
+    console.log(body);
     return 'signup';
   }
 
   @Post('login')
   logIn() {
-    return 'login'
+    return 'login';
   }
 
   @Post('logout')
@@ -30,7 +34,6 @@ export class CatsController {
 
   @Post('upload/cats')
   uploadCatImg() {
-    return 'uploadImg'
+    return 'uploadImg';
   }
-
 }
